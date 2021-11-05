@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/utilities.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     {% block header %}{% endblock %}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=AX-qqaOJdpq9u2q6uBYNRNzKkIY7CCpNQaJ2SmqRkGR_QJ-OaVgynqB8hO6fwV-BMDIoj0fdF9ywmwGy&currency=USD"></script>
@@ -18,8 +19,10 @@
 <body>
 <header>
     <nav>
-        <h1><a href="{% url 'home' %}">Ontario-Flowers.ca</a></h1>
+        <a href="{% url 'home' %}"><img src="{% static 'images/Ontario-Flowers-logos_black.png' %}"
+                                        width="140px; height=130px;" alt=""></a>
         <ul>
+            <li><a href="{% url 'flower_list' %}">Home</a></li>
             <li><a href="{% url 'flower_list' %}">Flowers</a></li>
             <li><a href="{% url 'plant_list' %}">Plants</a>
             <li><a href="{% url 'support' %}">Support</a></li>
