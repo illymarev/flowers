@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+    <div class="history-row" style="padding-top: 20px; margin-top: 20px; border-top: 2px solid lightgrey;">
+        <div id="first_picture" class="history-column background-blue"><h1>Who we are</h1></div>
+        <div class="history-column">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto atque eum fugiat ipsa iusto
+                maxime nam perferendis tempore vitae.</p>
+        </div>
+    </div>
+    <div class="history-row">
+        <div class="history-column">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi enim esse fuga laudantium minus
+                officiis? Aut dolores inventore sapiente suscipit!</p>
+        </div>
+        <div id="second_picture" class="history-column"><h1>Our positioning statement</h1></div>
+    </div>
+    <div class="history-row">
+        <div id="third_picture" class="history-column"><h1>Our team</h1></div>
+        <div class="history-column"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab architecto eaque et
+            ex ipsa iste laboriosam maiores molestiae tempore voluptate?</p></div>
+    </div>
+    <div class="history-row">
+        <div class="triple-column"><img src="{% static 'images/portrait.png' %}" alt="John">
+        </div>
+        <div class="triple-column"><img src="{% static 'images/portrait.png' %}" alt=""></div>
+        <div class="triple-column"><img src="{% static 'images/portrait.png' %}" alt=""></div>
+    </div>
+    <div id="fourth_picture" class="history-row" style="height: 500px; justify-content: center; align-items: center;">
+        <h1>Our organic suppliers</h1></div>
+    <div class="history-row" id="suppliers_row">
+        <div class="triple-column"><img src="{% static 'images/pexels-mark-stebnicki-2886937.jpg' %}" alt=""></div>
+        <div class="triple-column"><img src="{% static 'images/pexels-iconcom-736779.jpg' %}" alt=""></div>
+        <div class="triple-column"><img src="{% static 'images/pexels-greta-hoffman-7728347.jpg' %}" alt=""></div>
+    </div>
+    <div class="history-row">
+        <div class="triple-column">
+            <h1>Supplier 1</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolor dolore eius fugiat illo minima
+                mollitia quibusdam reiciendis velit vero!</p>
+        </div>
+        <div class="triple-column">
+            <h1>Supplier 2</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolor dolore eius fugiat illo minima
+                mollitia quibusdam reiciendis velit vero!</p>
+        </div>
+    <div class="triple-column">
+            <h1>Supplier 3</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dolor dolore eius fugiat illo minima
+                mollitia quibusdam reiciendis velit vero!</p>
+        </div>
+    </div>
+{% endblock %}

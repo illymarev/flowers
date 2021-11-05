@@ -1,0 +1,97 @@
+@media screen and (max-width: 1000px) {
+
+    nav {
+        width: 800px;
+        margin-left: 100px;
+        font-size: 1.2rem;
+    }
+
+    #home .column-2 {
+        position: relative;
+        line-height: 1.5;
+        top: 200px;
+        width: 100% !important;
+        margin: 0 100px;
+        font-size: 1.6rem;
+    }
+
+    #home .column-2 .home-single-button{
+        font-size: 1.6rem!important;
+    }
+
+    #home .css-row {
+        height: 1000px!important;
+        flex-direction: column!important;
+        justify-content: center!important;
+        align-items: center!important;
+    }
+
+    #home .column-1{
+        width: 100% !important;
+    }
+
+    .card {
+        flex-basis: 80%;
+        height: 300px;
+    }
+
+    .wrapper-right {
+        flex-basis: 70%;
+        min-width: 70%;
+        margin-left: 5%;
+    }
+
+    .wrapper-left {
+        min-width: 25%;
+        flex-basis: 25%;
+    }
+
+    .reviews-section{
+        position: relative;
+        top: 100px;
+    }
+
+    .reviews-section .column-2 {
+        position: relative;
+        left: 200px;
+    }
+
+    .card-details-button a {
+        font-size: 0.8rem !important;
+        width: 150px;
+    }
+
+    .card-details-image{
+        height: 700px;
+        width: 30vh!important;
+    }
+
+    .card-details-description{
+        height: 600px;
+        line-height: 1.6;
+    }
+
+    #already-in-cart{
+        font-size: 2.5rem!important;
+    }
+
+    .card-details-description h4{
+        font-size: 0.95rem;
+    }
+
+
+    .side-panel {
+        right: -50px;
+        margin-left: 20px;
+    }
+
+    .orders-table {
+        width: 600px !important;
+        margin: 50px 0;
+        right: -100px;
+    }
+
+    .checkout-right{
+        right: -50px;
+    }
+}

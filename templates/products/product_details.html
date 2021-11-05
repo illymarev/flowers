@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+    <a id="arrow-return" href="{{ request.META.HTTP_REFERER }}"><i class="fas fa-long-arrow-alt-left"></i></a>
+    {% if not product.is_sold %}
+        <div class="card-details-page">
+            <div class="card-details-image">
+                <img src="{{ product.image.url }}" alt="image">
+                <div class="card-details-image-description">
+                    <p><i class="icons-grey fas fa-truck"></i> Shop for $150 and get a free delivery</p>
+                    <p><i class="icons-grey fas fa-user-shield"></i> Quality guaranteed</p>
+                </div>
+            </div>
+            <div class="card-details-description">
+                {% if not product.is_sold %}
+                    <h4><i class="icons-grey fab fa-canadian-maple-leaf"></i> Local and organic</h4>{% endif %}
+                <h1>{{ product.name }} <span class="text-green text-small">&#36;{{ product.price }}</span></h1>
+                {% if reviews %}
+                    <div class="rating-star">
+								<span>
+									<i class="text-green far fa-star{% if product.average_review < 0.5 %}-o{% elif product.average_review >= 0.5 and product.average_review < 1 %}-half {% endif %}"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star{% if product.average_review < 1.5 %}-o{% elif product.average_review >= 1.5 and product.average_review < 2 %}-half {% endif %}"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star{% if product.average_review < 2.5 %}-o{% elif product.average_review >= 2.5 and product.average_review < 3 %}-half {% endif %}"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star{% if product.average_review < 3.5 %}-o{% elif product.average_review >= 3.5 and product.average_review < 4 %}-half {% endif %}"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star{% if product.average_review < 4.5 %}-o{% elif product.average_review >= 4.5 and product.average_review < 5 %}-half {% endif %}"
+                                       aria-hidden="true"></i>
+	<span>{{ product.count_review }} reviews</span>
+									</span>
+                    </div>
+                {% else %}
+                    <div class="rating-star">
+<span>
+									<i class="text-green far fa-star"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star"
+                                       aria-hidden="true"></i>
+	<span>0 reviews</span>
+									</span>
+                    </div>
+                {% endif %}
+                <p>{{ product.description }}</p>
+                {% if not product.is_plant %}
+                    <p class="product-flowers-inside">Flowers inside:</p>
+                    <ul>
+                        {% for single_flower in single_flowers %}
+                            <li>{{ single_flower.name }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <div class="card-details-button">
+                    {% if not in_cart %}
+                        <a href="{% url 'add_to_cart' product.id %}" id="add-to-cart" class="btn btn-round">Add to
+                            Bag</a>
+                        <a href="{% url 'single_product_checkout' product.id %}" id="buy-in-one-click"
+                           class="btn btn-round">Buy in one click</a>
+                    {% else %}
+                        <a id="already-in-cart" href="{% url 'cart' %}">
+                            <div>Bagged <i class="far fa-check-circle"></i></div>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="reviews-section">
+            <div class="column-1">
+                <form action="{% url 'submit_review' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <h2>Leave a review:</h2>
+                    <div class="rate">
+                        <input type="radio" name="rating" id="rating5" value="5" required><label for="rating5"
+                                                                                                 title="5"></label>
+                        <input type="radio" name="rating" id="rating4" value="4" required><label for="rating4"
+                                                                                                 title="4"></label>
+                        <input type="radio" name="rating" id="rating3" value="3" required><label for="rating3"
+                                                                                                 title="3"></label>
+                        <input type="radio" name="rating" id="rating2" value="2" required><label for="rating2"
+                                                                                                 title="2"></label>
+                        <input type="radio" name="rating" id="rating1" value="1" required><label for="rating1"
+                                                                                                 title="1"></label>
+                    </div>
+                    <label><input type="text" placeholder="Your Name" class="form-control"
+                                  name="display_name" required></label>
+                    <br>
+                    <label><textarea id="comment-textarea" placeholder="Comment (optional)" name="review"
+                                     class="form-control"></textarea></label>
+                    <br>
+                    {% if request.user.is_authenticated %}
+                        <button type="submit" class="btn btn-round">Submit Review</button>
+                    {% else %}
+                        <button type="button" class="disabled btn btn-round">Log In to Submit Review</button>
+                    {% endif %}
+                </form>
+            </div>
+
+            <div class="column-2">
+                <h2>Customer reviews:</h2>
+                {% if reviews %}
+                    {% for review in reviews %}
+                        <div class="review">
+                            <p>{{ review.display_name }} {% if review.purchase_verified %}
+                                <span class="text-green text-small"><i class="far fa-check-circle"></i> Purchase
+                        verified</span>{% endif %}</p>
+
+                            <div class="rating-star">
+								<span>
+									<i class="text-green far fa-star"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star{% if review.rating < 2 %}-o {% endif %}"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star{% if review.rating < 3 %}-o {% endif %}"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star{% if review.rating < 4 %}-o {% endif %}"
+                                       aria-hidden="true"></i>
+									<i class="text-green far fa-star{% if review.rating < 5 %}-o {% endif %}"
+                                       aria-hidden="true"></i>
+								</span>
+                            </div>
+                            {{ review.review }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="review">
+                        <p style="position: relative; left: 2.5px;">No reviews so far</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <h1>Product is not available</h1>
+    {% endif %}
+{% endblock %}

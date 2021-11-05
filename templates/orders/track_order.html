@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block bodyblock %}
+    <section class="section-content padding-y">
+        <div class="card-registration mx-auto" style="max-width:520px; width: 300px; margin-top:100px;">
+            <article class="card-body">
+                {% include 'includes.html' %}
+                <header class="mb-4"><h1 class="card-title">Track order</h1></header>
+                <form action="{% url 'track_order' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.email }}</div>
+                    <div class="form-group">
+                        {{ form.order_number }}</div>
+                    <div class="flex-centered">
+                        <button type="submit" class="btn btn-round">Track order</button>
+                    </div>
+                </form>
+            </article><!-- card-body.// -->
+
+        </div> <!-- card .// -->
+        <br><br>
+        <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+
+
+    </section>
+{% endblock %}

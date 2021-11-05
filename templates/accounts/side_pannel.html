@@ -1,0 +1,8 @@
+<div class="side-panel">
+    <a {% if '/dashboard/' in request.path %} class="active" {% endif %} href="{% url 'dashboard' %}">Orders
+        Information</a>
+    <a {% if '/edit_profile/' in request.path %} class="active" {% endif %} href="{% url 'edit_profile' %}">Account
+        Settings</a>
+    <a {% if '/change_password/' in request.path %} class="active" {% endif %}
+                                                    href="{% url 'change_password' %}">Change Password</a>
+</div>

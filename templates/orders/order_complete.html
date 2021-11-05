@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block bodyblock %}
+    <div style="height: 85vh; flex-direction: column; align-items: center; line-height: 1.5;" class="flex-centered">
+    <h1>Thank you for your purchase!</h1>
+    <p>Your order tracking link has been sent to your email.</p>
+    <p>You will soon be contacted by our manager to discuss your preferences and delivery time.</p>
+    <p>We are looking forward to seeing you again! Have a good day!</p>
+    <a style="font-size: 1rem;" class="btn btn-round" href="{% url 'home' %}">Continue</a>
+    </div>
+{% endblock %}

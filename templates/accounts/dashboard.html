@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block bodyblock %}
+    <div class="dashboard-layout">
+        {% include 'accounts/side_pannel.html' %}
+        <div class="orders-table">
+            <div class="orders-summary"><span>Paid in total: ${{ total_spent|floatformat }}</span> <span>Bonuses
+                earned: {{ bonuses_earned|floatformat }}</span> <span>Bonuses
+                available: {{ account.bonus_points }}</span>
+            </div>
+            <div style="overflow-x: auto">
+                <table>
+                    <tr>
+                        <th>Order Number</th>
+                        <th>Delivery Address</th>
+                        <th>Order total</th>
+                        <th>Expected delivery date</th>
+                        <th>Actual delivery date</th>
+                    </tr>
+                    {% if orders %}
+                        {% for order in orders %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'order_details' order.email order.order_number %}">{{ order.order_number }}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'order_details' order.email order.order_number %}">{{ order.address }}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'order_details' order.email order.order_number %}">{{ order.order_total }}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'order_details' order.email order.order_number %}">{{ order.expected_delivery }}</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'order_details' order.email order.order_number %}">{{ order.actual_delivery }}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+
+
+                        </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

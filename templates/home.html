@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+    <section id="home">
+        <div class="css-row">
+            <div class="column-1" id="dark-background"></div>
+            <div class="column-2">
+                <div class="column-2-text">
+                    <h1>We create art</h1>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores at aut dolor, et
+                        eveniet excepturi illum mollitia nostrum numquam odit placeat praesentium quia? Est pariatur
+                        quam quas quibusdam sed.
+                    </p>
+                </div>
+                <div class="flex-centered">
+                    <a href="{% url 'history' %}">
+                        <button class="home-single-button">View history</button>
+                    </a>
+                    <a href="{% url 'flower_list' %}">
+                        <button class="home-single-button">View flowers</button>
+                    </a>
+                    <a href="{% url 'plant_list' %}">
+                        <button class="home-single-button">View plants</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

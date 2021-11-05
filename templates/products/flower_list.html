@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+    <script>
+        var current_url = window.location.href;
+
+        function AppendURL(obj, number) {
+            if (obj.checked) {
+                if (current_url.indexOf('?') > -1) {
+                    current_url += '&flowers=' + number
+                } else {
+                    current_url += '?flowers=' + number
+                }
+            } else {
+                var re = ("&flowers=" + number);
+                var re1 = ("flowers=" + number)
+                current_url = current_url.replace(re, '')
+                current_url = current_url.replace(re1, '')
+            }
+
+            window.location.href = current_url;
+        }
+
+        function AppendURL2(href) {
+            if (current_url.indexOf('?') > -1) {
+                current_url += '&' + href
+            } else {
+                current_url += '?' + href
+            }
+            window.location.href = current_url;
+        }
+    </script>
+    <div class="container">
+        <div class="wrapper">
+            <div class="wrapper-left">
+                <aside>
+                    <h4>Flowers inside: </h4>
+                    <ul>
+                        {% for single_flower in single_flowers %}
+                            <li><label class="flowers-filter">{{ single_flower.name }} <input type="checkbox"
+                                                                                              class="save-cb-state"
+                                                                                              name="{{ single_flower.name }}"
+                                                                                              value="{{ single_flower.name }}"
+                                                                                              onchange="AppendURL(this, {{ single_flower.id }})"/>
+                            </label></li>
+                        {% endfor %}
+                    </ul>
+                </aside>
+
+                <div class="secondary-flowers-filter">
+                    <ul>
+                        <h4>Filter by category:</h4>
+                        <li {% if 'category' not in request.path %} class="active-category" {% endif %}><a
+                                id="category-redirect"
+                                href="{% url 'flower_list' %}">All categories</a></li>
+                        {% for category in flower_categories %}
+                            <li {% if category.slug in request.path %} class="active-category" {% endif %}><a
+                                    id="category-redirect"
+                                    href="{% url 'flowers_by_category' category.slug %}">
+                                {{ category.name }}
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="secondary-flowers-filter">
+                    <h4>Sort by:</h4>
+                    <ul>
+                        <li><a {% if not 'sort' in request.GET or 'freshness' in request.GET.values %}
+                            class="active-category" {% endif %} onclick="AppendURL2('sort=freshness')" href="#">New</a>
+                        </li>
+                        <li><a {% if 'popularity' in request.GET.values %} class="active-category" {% endif %}
+                                                                           onclick="AppendURL2('sort=popularity')"
+                                                                           href="#">Popularity</a></li>
+                        <li><a {% if 'l2h' in request.GET.values %} class="active-category" {% endif %}
+                                                                    onclick="AppendURL2('sort=l2h')" href="#">Price
+                            low to high</a></li>
+                        <li><a {% if 'h2l' in request.GET.values %} class="active-category" {% endif %}
+                                                                    onclick="AppendURL2('sort=h2l')" href="#">Price
+                            high to low</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="wrapper-right">
+                {% if page_obj %}
+                    {% for flower in page_obj %}
+                        <div class="{% if flower.is_sold %} not-available {% endif %} card">
+                            <div class="left-column"><img src="{{ flower.image.url }}" alt=""></div>
+                            <div class="right-column">
+                                <h2>{{ flower.name }}</h2>
+                                <p>{% if flower.is_sold %}Was a{% else %}A{% endif %}vailable for <strong><span
+                                        class="text-green">&#36;{{ flower.price }}</span></strong>
+                                </p>
+                                <a href="{% url 'product_details' id=flower.id %}">
+                                    <button class="btn">{% if not flower.is_sold %}<i
+                                            class="shopping-cart fas fa-shopping-cart"></i> BUY NOW
+                                    {% else %}
+                                        SOLD OUT
+                                    {% endif %}
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {% if page_obj.has_next or page_obj.has_previous %}
+                        <div class="pagination">
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                {% else %}
+                    <h3 class="text-center">There are no products matching your query. Please, come back later or choose
+                        something else</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script>
+        const queryString = window.location.search;
+        $("a#category-redirect").each(function () {
+            var $this = $(this);
+            var _href = $this.attr("href");
+            $this.attr("href", _href + queryString);
+        });
+
+        // Avoid scoping issues by encapsulating
+        // code inside anonymous function
+        (function () {
+            // variable to store our current state
+            var cbstate;
+            if (!window.location.search) {
+                localStorage.clear()
+            }
+
+            // bind to the onload event
+            window.addEventListener('load', function () {
+                // Get the current state from localstorage
+                // State is stored as a JSON string
+                cbstate = JSON.parse(localStorage['CBState'] || '{}');
+
+                // Loop through state array and restore checked
+                // state for matching elements
+                for (var i in cbstate) {
+                    var el = document.querySelector('input[name="' + i + '"]');
+                    if (el) el.checked = true;
+                }
+
+                // Get all checkboxes that you want to monitor state for
+                var cb = document.getElementsByClassName('save-cb-state');
+
+                // Loop through results and ...
+                for (var i = 0; i < cb.length; i++) {
+
+                    //bind click event handler
+                    cb[i].addEventListener('click', function (evt) {
+                        // If checkboxe is checked then save to state
+                        if (this.checked) {
+                            cbstate[this.name] = true;
+                        }
+
+                        // Else remove from state
+                        else if (cbstate[this.name]) {
+                            delete cbstate[this.name];
+                        }
+
+                        // Persist state
+                        localStorage.CBState = JSON.stringify(cbstate);
+                    });
+                }
+            });
+        })();
+    </script>
+{% endblock %}

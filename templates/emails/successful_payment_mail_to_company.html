@@ -1,0 +1,17 @@
+{% autoescape off %}
+Hello, Illia.
+There is a new purchase on Ontario Flowers website:
+Order number: {{ order.order_number }}
+Client full name: {{ order.first_name }} {{ order.last_name }}
+Client email: {{ order.email }}
+Sender phone number: {{ order.sender_phone }}
+{% if order.receiver_phone %}Receiver phone number: {{ order.receiver_phone }}{% endif %}
+{% if order.order_note %}Order note: {{ order.order_note }}
+{% endif %}
+You can view order details by following this link:
+http://{{ domain }}{% url 'order_details' email=order.email order_number=order.order_number %}
+or by going to our website, clicking the bag icon, and clicking the 'orders' button.
+The customer waits when you will contact him about delivery details.
+Kind regards,
+Ontario Flowers Administration
+{% endautoescape %}

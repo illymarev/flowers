@@ -1,0 +1,75 @@
+@media screen and (max-width: 1000px) {
+    nav {
+        width: 800px;
+        margin-left: 100px;
+    }
+
+    .column-2 {
+        position: relative;
+        line-height: 1.5;
+        width: 100% !important;
+        margin: 100px;
+        font-size: 1.3rem;
+    }
+
+    #home .css-row {
+        height: 1000px!important;
+        flex-direction: column!important;
+        justify-content: center!important;
+        align-items: center!important;
+    }
+
+    #home .column-1{
+        width: 100% !important;
+    }
+
+    .card {
+        flex-basis: 80%;
+        height: 300px;
+    }
+
+    .wrapper-right {
+        flex-basis: 70%;
+        min-width: 70%;
+        left: 100px;
+    }
+
+    .wrapper-left {
+        min-width: 30%;
+        flex-basis: 30%;
+    }
+
+    .reviews-section .column-2 {
+        position: relative;
+        left: 200px;
+    }
+
+    .card-details-button a {
+        font-size: 0.8rem !important;
+        width: 150px;
+    }
+
+    .card-details-image{
+        height: 700px;
+    }
+
+    .card-details-description{
+        height: 600px;
+    }
+
+
+    .side-panel {
+        right: -50px;
+        margin-left: 20px;
+    }
+
+    .orders-table {
+        width: 600px !important;
+        margin: 50px 0;
+        right: -100px;
+    }
+
+    .checkout-right{
+        right: -50px;
+    }
+}

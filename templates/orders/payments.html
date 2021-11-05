@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %}
+    Checkout
+{% endblock %}
+{% block bodyblock %}
+    <div class="flex-centered">
+    <div id="payments-page" class="order_details">
+            <p>Sender phone: {{ order.sender_phone }}</p>
+            {% if order.receiver_phone %}
+                <p>Receiver phone</p>
+            {% endif %}
+            <p>Delivery city: {{ order.city }}</p>
+            <p>Delivery address: {{ order.address }}</p>
+            <p>Postal code: {{ order.postal }}</p>
+            {% if order.apartment %}
+                <p>Apartment/Unit: {{ order.apartment }}</p>
+            {% endif %}
+            <p>Total without tax: ${{ order.total_without_tax|floatformat }}</p>
+            <p>Tax: ${{ order.tax|floatformat }}</p>
+            <p>Bonuses used: ${{ order.bonus_points_used|floatformat }}</p>
+            <p>Delivery: ${{ order.delivery|floatformat }}</p>
+            <p>Total: ${{ order.order_total|floatformat }}</p>
+            {% if order.order_note %}
+                <p>Order note: {{ order.order_note }}</p>
+            {% endif %}
+    <div id="paypal-button-container"></div>
+        </div></div>
+
+    <script>
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie('csrftoken');
+
+        var amount =
+            "{{ order.order_total|floatformat }}"
+        {% if not product_id %}
+            var url =
+                "{% url 'payments' %}"
+        {% else %}
+            var url = "{% url 'payments' product_id %}"
+        {% endif %}
+        var redirect_url = "{% url 'order_complete' %}"
+        var orderID = "{{ order.order_number }}"
+
+        {#square#}
+
+
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+            style: {
+                color: 'blue',
+                label: 'pay',
+                height: 40
+            },
+            // Set up the transaction
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: amount,
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (orderData) {
+
+                    sendData()
+                    setTimeout(() => {
+                        window.location.href = redirect_url
+                    }, 3000);
+
+                    function sendData() {
+                        fetch(url, {
+                            method: "post",
+                            headers: {
+                                "Content-type": "application/json",
+                                "X-CSRFToken": csrftoken,
+                            },
+                            body: JSON.stringify({
+                                orderID: orderID,
+                                transID: orderData.id,
+                                status: orderData.status,
+                            }),
+                        })
+                    }
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+{% endblock %}

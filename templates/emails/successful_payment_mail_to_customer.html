@@ -1,0 +1,11 @@
+{% autoescape off %}
+Dear {{ order.first_name }} {{ order.last_name }},
+Your order has been received:
+Order number: {{ order.order_number }}
+You can view order details by following this link:
+http://{{ domain }}{% url 'order_details' email=order.email order_number=order.order_number %}
+or by going to our website, clicking the bag icon, and clicking the 'orders' button.
+Thank you for choosing Ontario Flowers! You will be soon contacted by our manager to discuss the delivery time.
+Kind regards,
+Ontario Flowers Administration
+{% endautoescape %}

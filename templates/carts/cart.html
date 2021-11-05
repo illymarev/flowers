@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Cart
+{% endblock %}
+{% block bodyblock %}
+    <div class="order_summary">
+        <div class="summary_card">
+        {% if cart_items %}
+            {% for cart_item in cart_items %}
+                <div class="card_item">
+                    <div class="product_img">
+                        <img src="{{ cart_item.product.image.url }}" alt=""/>
+                    </div>
+                    <div class="product_info">
+                        <h1>{{ cart_item.product.name }}</h1>
+                        <p>Category: {{ cart_item.product.category.name }}</p>
+                        <div class="close-btn">
+                            <a href="{% url 'remove_from_cart' cart_item.product.id cart_item.id %}"><i
+                                    class="fa fa-close"></i></a>
+                        </div>
+                        <div class="product_rate_info">
+                            <h1>${{ cart_item.product.price }}</h1>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <hr/>
+            <div class="order_price">
+                <p>Order summary</p>
+                <h4>${{ total_without_tax }}</h4>
+            </div>
+            <div class="order_service">
+                <p>Taxes</p>
+                <h4>${{ tax|floatformat:2 }}</h4>
+            </div>
+            <div class="order_service">
+                <p>Delivery</p>
+                <h4>{% if delivery > 0 %}${{ delivery }}{% else %}Free{% endif %}</h4>
+            </div>
+            <div class="order_total">
+                <p>Total Amount</p>
+                <h4>${{ total }}</h4>
+            </div></div>
+            </div>
+            <div id="button-to-checkout" class="card-details-button">
+                    <a href="{% url 'checkout' %}" id="checkout-button" class="btn btn-round">Check Out</a>
+            </div>
+        {% else %}
+        <h4 style="text-align: center;">Your bag is empty.</h4>
+        {% endif %}
+{% endblock %}

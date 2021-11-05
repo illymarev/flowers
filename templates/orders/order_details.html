@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block bodyblock %}
+    <a id="arrow-return" href="{{ request.META.HTTP_REFERER }}"><i class="fas fa-long-arrow-alt-left"></i></a>
+    <div class="order_flex">
+        <div class="order_details">
+            <p>Order number: {{ order.order_number }}</p>
+            <p>Sender phone: {{ order.sender_phone }}</p>
+            {% if order.receiver_phone %}
+                <p>Receiver phone</p>
+            {% endif %}
+            <p>Delivery city: {{ order.city }}</p>
+            <p>Delivery address: {{ order.address }}</p>
+            <p>Postal code: {{ order.postal }}</p>
+            {% if order.apartment %}
+                <p>Apartment/Unit: {{ order.apartment }}</p>
+            {% endif %}
+            <p>Total without tax: {{ order.total_without_tax }}</p>
+            <p>Tax: {{ order.tax }}</p>
+            <p>Bonuses used: {{ order.bonus_points_used }}</p>
+            <p>Delivery: {{ order.delivery }}</p>
+            <p>Total: {{ order.order_total }}</p>
+            <p>Expected delivery: {{ order.expected_delivery }}</p>
+            <p>Actual delivery: {{ order.actual_delivery }}</p>
+            {% if order.order_note %}
+                <p>Order note: {{ order.order_note }}</p>
+            {% endif %}
+        </div>
+        <div class="checkout-right" style="margin: 0;">
+            <div style="margin-top: 0;" class="mx-auto order_summary">
+                <div class="summary_card" id="checkout-summary-card">
+                    {% for cart_item in order_products %}
+                        <div class="card_item">
+                            <div class="product_img">
+                                <img src="{{ cart_item.product.image.url }}" alt=""/>
+                            </div>
+                            <div class="product_info">
+                                <h1>{{ cart_item.product.name }}</h1>
+                                <p>Category: {{ cart_item.product.category.name }}</p>
+                                <div class="product_rate_info">
+                                    <h1>${{ cart_item.product.price }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+{% endblock %}

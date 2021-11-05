@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block bodyblock %}
+    <div class="dashboard-layout">
+        {% include 'accounts/side_pannel.html' %}
+        <div class="orders-table">
+            <div class="card-registration mx-auto" style="width:400px; max-width: 800px; margin-top:100px;">
+                <div class="card-body">
+                    {% include 'includes.html' %}
+                    <h4 class="card-title mb-4">My Account</h4>
+                    <form action="{% url 'edit_profile' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>First name
+                                {{ form.first_name }}</label>
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            <label>Last name
+                                {{ form.last_name }}</label>
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            <label>Phone number
+                                {{ form.phone_number }}</label>
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            <label>Do you want to receive emails?
+                                {{ form.wants_emails }}</label>
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                        </div> <!-- form-group form-check .// -->
+                        <div class="flex-centered">
+                            <button id="save-button" type="submit" class="btn btn-round">Save</button>
+                        </div>
+                    </form>
+                </div> <!-- card-body.// -->
+            </div> <!-- card .// -->
+        </div>
+    </div>
+{% endblock %}

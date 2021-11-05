@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyblock %}
+    <div class="container">
+        <div class="wrapper">
+            <div class="wrapper-left">
+                <div class="secondary-flowers-filter no-margin-top">
+                    <ul>
+                        <h4>Filter by category:</h4>
+                        <li {% if 'category' not in request.path %} class="active-category" {% endif %}><a
+                                id="category-redirect"
+                                href="{% url 'plant_list' %}">All plants</a></li>
+                        {% for category in plant_categories %}
+                            <li {% if category.slug in request.path %} class="active-category" {% endif %}><a
+                                    id="category-redirect"
+                                    href="{% url 'plants_by_category' category.slug %}">
+                                {{ category.name }}
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="secondary-flowers-filter">
+                    <h4>Sort by:</h4>
+                    <ul>
+                        <li><a {% if not 'sort' in request.GET or 'freshness' in request.GET.values %}
+                            class="active-category" {% endif %} href="?sort=freshness">New</a>
+                        </li>
+                        <li><a {% if 'popularity' in request.GET.values %} class="active-category" {% endif %}
+                                                                           href="?sort=popularity">Popularity</a></li>
+                        <li><a {% if 'l2h' in request.GET.values %} class="active-category" {% endif %}
+                                                                    href="?sort=l2h">Price
+                            low to high</a></li>
+                        <li><a {% if 'h2l' in request.GET.values %} class="active-category" {% endif %}
+                                                                    href="?sort=h2l">Price
+                            high to low</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="wrapper-right">
+                {% if page_obj %}
+                    {% for plant in page_obj %}
+                        <div class="{% if plant.is_sold %} not-available {% endif %} card">
+                            <div class="left-column"><img src="{{ plant.image.url }}" alt=""></div>
+                            <div class="right-column">
+                                <h2>{{ plant.name }}</h2>
+                                <p>{% if plant.is_sold %}Was a{% else %}A{% endif %}vailable for <strong><span
+                                        class="text-green">&#36;{{ plant.price }}</span></strong>
+                                </p>
+                                <a href="{% url 'product_details' id=plant.id %}">
+                                    <button class="btn">{% if not plant.is_sold %}
+                                        <i class="shopping-cart fas fa-shopping-cart"></i> BUY NOW
+                                    {% else %}
+                                        SOLD OUT
+                                    {% endif %}
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {% if page_obj.has_next or page_obj.has_previous %}
+                        <div class="pagination">
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                            {% endif %}
+
+                            <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                {% else %}
+                    <h3 class="text-center">There are no products matching your query. Please, come back later or choose
+                        something else</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const queryString = window.location.search;
+        $("a#category-redirect").each(function () {
+            var $this = $(this);
+            var _href = $this.attr("href");
+            $this.attr("href", _href + queryString);
+        });
+    </script>
+{% endblock %}
