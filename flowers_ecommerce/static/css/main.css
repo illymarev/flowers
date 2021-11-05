@@ -558,26 +558,26 @@ tr:hover {
     background-color: lightgrey;
 }
 
-td a{
+td a {
     padding: 15px;
     display: block;
 }
 
-.dashboard-layout{
+.dashboard-layout {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     margin-top: 20px;
 }
 
-.orders-table{
+.orders-table {
     display: flex;
     flex-direction: column;
     position: relative;
     width: 1000px;
 }
 
-.side-panel{
+.side-panel {
     display: flex;
     flex-direction: column;
     height: 40vh;
@@ -588,7 +588,7 @@ td a{
     margin-top: 130px;
 }
 
-.side-panel a{
+.side-panel a {
     padding: 15px;
     border: 1px solid lightgrey;
     margin-bottom: 20px;
@@ -598,14 +598,14 @@ td a{
     text-align: center;
 }
 
-.orders-summary{
+.orders-summary {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
     margin-bottom: 15px;
 }
 
-.orders-summary span{
+.orders-summary span {
     border: 1px solid lightgrey;
     padding: 10px;
     border-radius: 8px;
@@ -614,21 +614,21 @@ td a{
     font-weight: 600;
 }
 
-.active{
+.active {
     background-color: #1a73e8;
     color: white;
 }
 
-#save-button{
+#save-button {
     font-size: 0.95rem;
 }
 
-#message{
+#message {
     text-align: center;
 }
 
 /*orders details page*/
-.order_details{
+.order_details {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -638,13 +638,13 @@ td a{
     line-height: 2;
 }
 
-.order_details p{
+.order_details p {
     border-bottom: 1px solid lightgrey;
     width: 100%;
     text-align: center;
 }
 
-.order_flex{
+.order_flex {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -652,18 +652,18 @@ td a{
 }
 
 /*payments page*/
-#payments-page{
+#payments-page {
     justify-content: center;
     align-items: center;
     margin-top: 50px;
 }
 
-#payments-page #paypal-button-container{
+#payments-page #paypal-button-container {
     margin-top: 20px;
     width: 80%;
 }
 
-.history-row{
+.history-row {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -673,7 +673,7 @@ td a{
     margin-bottom: 20px;
 }
 
-.history-column{
+.history-column {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -682,15 +682,15 @@ td a{
     width: 50%;
 }
 
-.history-column p{
+.history-column p {
     width: 50%;
 }
 
-.history-column h1{
+.history-column h1 {
     margin-bottom: 20px;
 }
 
-.triple-column{
+.triple-column {
     display: flex;
     flex-basis: 33.3%;
     height: 400px;
@@ -699,26 +699,26 @@ td a{
     align-items: center;
 }
 
-.triple-column p{
+.triple-column p {
     position: relative;
     top: -60px;
     width: 100%;
 }
 
-.triple-column img{
+.triple-column img {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
-#first_picture{
+#first_picture {
     background-image: url("../images/pexels-ákos-szabó-440731.jpg");
     background-size: cover;
     filter: brightness(90%);
     color: white;
 }
 
-#second_picture{
+#second_picture {
     background-image: url("../images/pexels-jahoo-clouseau-388415.jpg");
     background-size: cover;
     filter: brightness(90%);
@@ -726,14 +726,14 @@ td a{
     text-align: center;
 }
 
-#third_picture{
+#third_picture {
     background-image: url("../images/pexels-fauxels-3184418.jpg");
     background-size: cover;
     filter: brightness(90%);
     color: white;
 }
 
-#fourth_picture{
+#fourth_picture {
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../images/pexels-artem-beliaikin-1675211.jpg");
     background-size: cover;
     color: white;
@@ -741,8 +741,14 @@ td a{
     width: 100%;
 }
 
-#suppliers_row{
+#suppliers_row {
     margin-bottom: 10px;
     padding-bottom: 0;
     border-bottom: 0;
+}
+
+.pagination{
+    margin-bottom: 20px;
+    position: relative;
+    left: 3%;
 }

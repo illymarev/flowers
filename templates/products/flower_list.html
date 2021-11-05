@@ -102,26 +102,22 @@
                             </div>
                         </div>
                     {% endfor %}
-
-                    {% if page_obj.has_next or page_obj.has_previous %}
-                        <div class="pagination">
-                            {% if page_obj.has_previous %}
-                                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                            {% endif %}
-
-                            <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
-
-                            {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-
                 {% else %}
                     <h3 class="text-center">There are no products matching your query. Please, come back later or choose
                         something else</h3>
+                {% endif %}
+                {% if page_obj.has_next or page_obj.has_previous %}
+                    <div class="pagination">
+                            <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        {% endif %}
+                    </div>
                 {% endif %}
             </div>
         </div>
