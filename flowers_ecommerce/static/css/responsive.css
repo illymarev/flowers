@@ -8,7 +8,11 @@
     }
 
     nav ul li a{
-        padding: 20px 25px;
+        padding: 20px 30px;
+    }
+
+    .mobile-disabled{
+        display: none;
     }
 
     #home .column-2 {
