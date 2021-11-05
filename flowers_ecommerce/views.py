@@ -7,3 +7,7 @@ def home(request):
 
 def history(request):
     return render(request, 'history.html')
+
+
+def support(request):
+    return render(request, 'support.html')
